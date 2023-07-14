@@ -154,7 +154,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
