@@ -1,7 +1,7 @@
 package com.aye10032.ysmod.item;
 
+import com.aye10032.ysmod.data.ArtifactData;
 import com.aye10032.ysmod.item.artifacts.ArtifactGroup;
-import com.google.common.collect.Lists;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -12,6 +12,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.util.List;
@@ -35,6 +36,11 @@ public class ItemBase extends Item implements ICurioItem {
     }
 
     @Override
+    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
+        ICurioItem.super.onEquip(slotContext, prevStack, stack);
+    }
+
+    @Override
     public void appendHoverText(
             @NotNull ItemStack stack, @Nullable Level level,
             @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
@@ -44,13 +50,16 @@ public class ItemBase extends Item implements ICurioItem {
         if (compound == null) {
             setCustomNBT(stack);
         }
-        // 检查标签是否存在
+
         if (compound != null && compound.contains("Type")) {
-            // 获取NBT值
             int value = compound.getInt("Type");
 
-            // 添加自定义信息到tooltip中
             tooltip.add(new TextComponent("Attack: " + value));
         }
+    }
+
+    @Nullable
+    public ArtifactData getArtifactData() {
+        return null;
     }
 }
